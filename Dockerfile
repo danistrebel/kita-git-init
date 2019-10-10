@@ -7,5 +7,8 @@ RUN apk --update add git less openssh bash && \
 VOLUME /git
 WORKDIR /git
 
-ENTRYPOINT ["/bin/bash", "-c"]
-CMD ["git", "--help"]
+COPY idempotent-clone.sh /opt/
+
+RUN chmod +x /opt/idempotent-clone.sh
+
+ENTRYPOINT ["/opt/idempotent-clone.sh"]
